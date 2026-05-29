@@ -1,0 +1,113 @@
+@startuml VehicleRentalSystemClassDiagram
+' 说明：
+' - 源码中不存在虚继承关系。
+' - VehicleManager<T> 按主程序中的实际用法建模：VehicleManager<Vehicle>。
+' - VehicleManager 负责释放车辆列表中的对象，因此车辆列表是组合关系。
+' - 车牌索引只是指向同一批车辆对象，因此是聚合关系。
+' - Car 和 Motorcycle 没有显式析构函数；图中标出隐式析构函数。
+' - 主函数和菜单函数是普通函数，未画入类图。
+
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam linetype ortho
+skinparam nodesep 120
+skinparam ranksep 140
+hide empty members
+
+title 车辆租赁系统 类图
+
+abstract class Vehicle {
+  - 车牌号 : 字符串
+  - 品牌 : 字符串
+  - 型号 : 字符串
+  - 年份 : 整数
+  - 日租金 : 小数
+  - 已出租 : 布尔值
+  - 租客姓名 : 字符串
+  + Vehicle(车牌号 : 字符串, 品牌 : 字符串, 型号 : 字符串, 年份 : 整数, 日租金 : 小数)
+  + getLicensePlate() : 字符串 <<const>>
+  + getBrand() : 字符串 <<const>>
+  + getModel() : 字符串 <<const>>
+  + getYear() : 整数 <<const>>
+  + getDailyRate() : 小数 <<const>>
+  + getIsRented() : 布尔值 <<const>>
+  + getRenterName() : 字符串 <<const>>
+  + setBrand(品牌 : 字符串) : 无返回值
+  + setModel(型号 : 字符串) : 无返回值
+  + setYear(年份 : 整数) : 无返回值
+  + setDailyRate(日租金 : 小数) : 无返回值
+  + rentVehicle(租客姓名 : 字符串) : 无返回值
+  + returnVehicle() : 无返回值
+  + displayInfo() : 无返回值 <<abstract, const>>
+  + calculateRentFee(天数 : 整数) : 小数 <<virtual, const>>
+  + ~Vehicle() <<virtual>>
+}
+
+class Car {
+  - 车门数量 : 整数
+  - 燃油类型 : 字符串
+  - 是否有空调 : 布尔值
+  + Car(车牌号 : 字符串, 品牌 : 字符串, 型号 : 字符串, 年份 : 整数, 日租金 : 小数, 车门数量 : 整数, 燃油类型 : 字符串, 空调输入 : 字符串)
+  + ~Car() <<隐式析构函数>>
+  + getNumberDoor() : 整数 <<const>>
+  + getFuelType() : 字符串 <<const>>
+  + getIsAC() : 布尔值 <<const>>
+  + displayInfo() : 无返回值 <<override, const>>
+  + calculateRentFee(天数 : 整数) : 小数 <<override, const>>
+}
+
+class Motorcycle {
+  - 排量 : 小数
+  - 类型 : 字符串
+  - 是否有边车 : 布尔值
+  + Motorcycle(车牌号 : 字符串, 品牌 : 字符串, 型号 : 字符串, 年份 : 整数, 日租金 : 小数, 排量 : 小数, 类型 : 字符串, 边车输入 : 字符串)
+  + ~Motorcycle() <<隐式析构函数>>
+  + getDisplacement() : 小数 <<const>>
+  + getType() : 字符串 <<const>>
+  + getHasSidecar() : 布尔值 <<const>>
+  + displayInfo() : 无返回值 <<override, const>>
+}
+
+class "VehicleManager<T>" as VehicleManager {
+  - 车辆列表 : 指针顺序表
+  - 车牌索引 : 车牌到指针的映射
+  - splitline(文本行 : 字符串) : 字符串列表
+  + addVehicleByInput() : 无返回值
+  + addVehicle(车辆指针 : T指针) : 布尔值
+  + displayAllVehicle() : 无返回值
+  + displayAvailableVehicle() : 无返回值
+  + displayRentedVehicle() : 无返回值
+  + rentVehicle(车牌号 : 字符串, 租客姓名 : 字符串, 天数 : 整数) : 无返回值
+  + returnVehicle(车牌号 : 字符串) : 无返回值
+  + searchVehicle(车牌号 : 字符串) : T指针 <<const>>
+  + displayVehiclesByBrand(品牌 : 字符串) : 无返回值 <<const>>
+  + removeVehicle(车牌号 : 字符串) : 布尔值
+  + getTotalVehicle() : 整数 <<const>>
+  + getAvailableVehicle() : 整数 <<const>>
+  + getRentedVehicle() : 整数 <<const>>
+  + getTotalRate() : 小数 <<const>>
+  + updateVehicleInfo() : 无返回值
+  + displayStatistics() : 无返回值 <<const>>
+  + sortByInput(排序依据 : 字符串) : 布尔值
+  + loadFromFile(文件名 : 字符串引用) : 无返回值
+  + saveToFile(文件名 : 字符串引用) : 无返回值 <<const>>
+  + ~VehicleManager()
+}
+
+Vehicle <|-- Car
+Vehicle <|-- Motorcycle
+
+VehicleManager *-- "零到多个" Vehicle : 通过车辆列表拥有
+VehicleManager o-- "零到多个" Vehicle : 通过车牌索引查找
+VehicleManager ..> Vehicle : 通过基类指针调用虚函数
+VehicleManager ..> Car : 创建对象并在保存时识别类型
+VehicleManager ..> Motorcycle : 创建对象并在保存时识别类型
+
+note right of VehicleManager
+  程序实际使用 T = Vehicle。
+  车辆列表和车牌索引保存 Vehicle 指针。
+  运行时通过基类指针多态调用
+  Car 和 Motorcycle 的行为。
+end note
+
+@enduml

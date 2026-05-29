@@ -1,0 +1,15 @@
+# macOS
+.DS_Store
+**/.DS_Store
+
+# build output
+build/
+*.o
+*.out
+*.exe
+*.dSYM/
+rental
+main
+
+# temporary files
+*.log
