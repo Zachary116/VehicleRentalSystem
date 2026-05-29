@@ -42,7 +42,7 @@
 - 模板类
 - 动态内存管理
 - STL 容器：`vector`、`map`
-- STL 算法：`count_if`、`sort`
+- STL 算法：`find_if`、`count_if`、`sort`
 - Lambda 表达式
 - 文件 I/O：`ifstream`、`ofstream`
 - CSV 文件解析
