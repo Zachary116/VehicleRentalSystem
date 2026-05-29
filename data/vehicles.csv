@@ -1,0 +1,10 @@
+Car,A1001,Toyota,Camry,2022,300,0,,4,Gasoline,1
+Car,A1002,BMW,X5,2023,600,1,Tom,4,Gasoline,1
+Car,A1003,Audi,A4,2021,450,0,,4,Gasoline,1
+Car,A1004,Tesla,Model3,2024,520,1,Alice,4,Electric,1
+Car,A1005,Honda,Civic,2020,260,0,,4,Gasoline,1
+Motorcycle,B2001,Honda,CB500F,2021,180,0,,500,Street,0
+Motorcycle,B2002,Yamaha,NMAX,2020,150,1,Jack,155,Scooter,0
+Motorcycle,B2003,Kawasaki,Ninja400,2022,220,0,,400,Sport,0
+Motorcycle,B2004,Ducati,Monster,2023,350,1,Mike,937,Street,0
+Motorcycle,B2005,BMW,R1250GS,2024,380,0,,1250,Adventure,0

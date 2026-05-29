@@ -1,0 +1,6 @@
+{
+    "code-runner.executorMap": {
+        "cpp": "cd \"$workspaceRoot\" && mkdir -p build && g++ -std=c++17 src/*.cpp -Iinclude -o build/rental && ./build/rental"
+    },
+    "code-runner.runInTerminal": true
+}
