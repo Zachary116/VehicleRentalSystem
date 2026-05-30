@@ -8,10 +8,28 @@
 ' - 主函数和菜单函数是普通函数，未画入类图。
 
 skinparam classAttributeIconSize 0
+skinparam backgroundColor white
+skinparam defaultFontColor black
+skinparam classFontColor black
+skinparam classAttributeFontColor black
+skinparam arrowColor black
+skinparam noteFontColor black
+skinparam noteBorderColor black
+skinparam noteBackgroundColor white
 skinparam shadowing false
 skinparam linetype ortho
-skinparam nodesep 120
-skinparam ranksep 140
+skinparam defaultFontName "Arial Unicode MS"
+skinparam defaultFontSize 32
+skinparam titleFontSize 44
+skinparam classFontSize 36
+skinparam classFontStyle bold
+skinparam classAttributeFontSize 30
+skinparam arrowFontSize 30
+skinparam noteFontSize 30
+skinparam classBorderThickness 2
+skinparam arrowThickness 2
+skinparam nodesep 180
+skinparam ranksep 200
 hide empty members
 
 title 车辆租赁系统 类图
